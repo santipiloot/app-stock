@@ -1,0 +1,5 @@
+@URL = http://localhost:3000
+
+### Obtener todos los usuarios
+GET {{URL}}/usuarios
+Content-Type: application/json
