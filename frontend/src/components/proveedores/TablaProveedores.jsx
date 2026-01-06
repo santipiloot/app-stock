@@ -11,6 +11,7 @@ function TablaProveedores() {
   return (
     <div>
        <h1>Proveedores</h1>
+       <Link className="btn btn-success" role="button" to={"/proveedores/crear"}>Agregar proveedor</Link>
        <table className="table">
         <thead>
             <tr>
