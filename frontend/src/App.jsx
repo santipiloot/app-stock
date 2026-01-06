@@ -18,6 +18,7 @@ function App() {
         <Route path="productos" element={<ProductosLayout/>} />
 
         <Route path="usuarios" element={<UsuariosLayout/>} />
+        
 
         <Route path="proveedores" element={<ProveedoresLayout/>}/>
         
