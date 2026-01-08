@@ -1,6 +1,6 @@
 import express from "express";
-import { conectarDB } from "./database.js";
-import usuariosRoutes from "./routes/usuario.routes.js";
+import { conectarDB } from "./config/database.js";
+import usuariosRoutes from "./modules/usuarios/usuario.routes.js";
 
 conectarDB();
 
