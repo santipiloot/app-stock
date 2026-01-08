@@ -1,4 +1,4 @@
-import { db } from "../database.js";
+import { db } from "../../config/database.js";
 
 const Usuario = {
     getUsuarios: async () => {
