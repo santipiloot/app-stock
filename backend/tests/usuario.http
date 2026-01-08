@@ -3,3 +3,7 @@
 ### Obtener todos los usuarios
 GET {{URL}}/usuarios
 Content-Type: application/json
+
+### Obtener un solo usuario
+GET {{URL}}/usuarios/0
+Content-Type: application/json
