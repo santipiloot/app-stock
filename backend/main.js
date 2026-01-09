@@ -1,11 +1,14 @@
 import express from "express";
 import { conectarDB } from "./config/database.js";
 import usuariosRoutes from "./modules/usuarios/usuario.routes.js";
-
-conectarDB();
+import authConfig from "./config/auth.js";
+import authRoutes from "./modules/auth/auth.routes.js"
 
 const app = express();
 const port = 3000;
+
+conectarDB();
+authConfig();
 
 app.use(express.json());
 
@@ -14,6 +17,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/usuarios", usuariosRoutes)
+app.use("/auth", authRoutes)
 
 app.listen(port, () => {
     console.log(`La app esta funcionando en el puerto ${port}`);

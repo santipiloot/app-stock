@@ -21,6 +21,28 @@ const Usuario = {
             console.error("Error en la base de datos con getUsuario:", error);
             throw error;
         }
+    }, 
+    getUsuarioUsername: async (username) => {
+        try {
+            const res = await db.query(
+                "SELECT id, nombre, apellido, username, activo, rol_id FROM usuarios WHERE username=$1", [username]);
+
+            return res.rows[0]
+        } catch (error) {
+            console.error("Error en la base de datos con getUsuarioUsername:", error);
+            throw error;
+        }
+    }, 
+    register: async (nombre, apellido, username, rol_id, activo, password_hash) => {
+        try {
+            const res = await db.query("INSERT INTO usuarios (nombre, apellido, username, rol_id, activo, password_hash) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", [nombre, apellido, username, rol_id, activo,  password_hash])
+
+            return res.rows[0];
+
+        } catch(error){
+            console.error("Error en la base de datos con register:", error);
+            throw error;
+        }
     }
 }
 

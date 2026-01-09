@@ -1,0 +1,15 @@
+@URL = http://localhost:3000
+@token = TU_TOKEN_AQUI_DESPUES_DE_REGISTRAR
+
+### 1. Probar Registro de Usuario
+POST {{URL}}/auth/register
+Content-Type: application/json
+
+{
+    "nombre": "Santino",
+    "apellido": "Pilot",
+    "username": "santipiloot",
+    "rol_id": 1,
+    "activo": true,
+    "password": "miPasswordSegura123"
+}
