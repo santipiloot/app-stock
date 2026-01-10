@@ -25,7 +25,7 @@ const Usuario = {
     getUsuarioUsername: async (username) => {
         try {
             const res = await db.query(
-                "SELECT id, nombre, apellido, username, activo, rol_id FROM usuarios WHERE username=$1", [username]);
+                "SELECT * FROM usuarios WHERE username=$1", [username]);
 
             return res.rows[0]
         } catch (error) {
