@@ -8,7 +8,7 @@ const usuarioController = {
 
         } catch (error) {
             console.error("Error en el controlador de getUsuarios:", error);
-            res.status(500).json({ success: false, errores: ["Error al obtener los usuarios"] });
+            res.status(500).json({ success: false, message: "Error interno del servidor al obtener los usuarios" });
         }
     },
     getUsuario: async (req, res) => {
@@ -20,7 +20,7 @@ const usuarioController = {
             if (!usuario) {
                 return res.status(404).json({
                     success: false,
-                    errores: ["Usuario no encontrado"]
+                    message: "Usuario no encontrado"
                 });
             }
 
@@ -28,7 +28,7 @@ const usuarioController = {
 
         } catch (error) {
             console.error("Error en el controlador de getUsuario:", error);
-            res.status(500).json({ success: false, errores: ["Error al obtener el usuario"] });
+            res.status(500).json({ success: false, message: "Error interno del servidor al obtener el usuario" });
         }
     }
 }
