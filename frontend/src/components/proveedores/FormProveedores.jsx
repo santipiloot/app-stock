@@ -20,7 +20,7 @@ function FormProveedores() {
     }
 
   return (
-    <div className="modal">
+    <div className="container mt-3">
         <h2>Ingrese datos del proveedor</h2>
         <form onSubmit={handleSubmit}>
            <div className="mb-3">
@@ -37,7 +37,7 @@ function FormProveedores() {
   
   
   <button type="submit" className="btn btn-primary">Agregar</button>
-  <button type="submit" className="btn btn-primary">Cancelar</button>  
+  <button type="button" className="btn btn-secondary ms-2" onClick={() => navigate("/proveedores")}>Cancelar</button>  
         </form>
 
         
