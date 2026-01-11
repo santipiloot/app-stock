@@ -31,8 +31,8 @@ function TablaProveedores() {
                     <td>{p.activo ? "Si" : "No"}</td>
                     <td>
                         <div>
-                        <Link className="btn btn-outline-info btn-sm" role="button" to={`/medicos/${p.id}`}> Ver </Link>
-                        <Link className="btn btn-outline-warning btn-sm" role="button" to={`/medicos/${p.id}/modificar`}> Modificar </Link>
+                        <Link className="btn btn-outline-info btn-sm" role="button" to={`/proveedores/${p.id}`}> Ver </Link>
+                        <Link className="btn btn-outline-warning btn-sm" role="button" to={`/proveedores/${p.id}/modificar`}> Modificar </Link>
                         <button className="btn btn-outline-danger btn-sm" onClick={() => handleQuitar(p.id)}>Quitar</button>
                         </div>
                     </td>
