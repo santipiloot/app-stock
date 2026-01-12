@@ -1,8 +1,10 @@
-import React from 'react'
+import TablaProveedores from "./TablaProveedores"
 
 function ProveedoresLayout() {
   return (
-    <div>ProveedoresLayout</div>
+    <div>
+      <TablaProveedores/>
+    </div>
   )
 }
 

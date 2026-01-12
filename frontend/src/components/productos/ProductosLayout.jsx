@@ -1,8 +1,9 @@
 import React from 'react'
+import TablaProductos from './TablaProductos'
 
 function ProductosLayout() {
   return (
-    <div>ProductosLayout</div>
+    <div><TablaProductos/></div>
   )
 }
 

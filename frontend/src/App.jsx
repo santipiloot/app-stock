@@ -5,11 +5,16 @@ import Home from "./components/home/Home.jsx"
 import ProductosLayout from "./components/productos/ProductosLayout.jsx"
 import UsuariosLayout from "./components/usuarios/UsuariosLayout.jsx"
 import ProveedoresLayout from "./components/proveedores/ProveedoresLayout.jsx"
+import FormProveedores from "./components/proveedores/FormProveedores.jsx"
+import Login from "./components/login/Login.jsx"
 
 function App() {
 
   return (
     <>
+    <Routes>
+      <Route path="/login" element={<Login/>} />
+    </Routes>
       <Routes>
         <Route path="/" element={<Layout/>}>
 
@@ -19,8 +24,8 @@ function App() {
 
         <Route path="usuarios" element={<UsuariosLayout/>} />
         
-
         <Route path="proveedores" element={<ProveedoresLayout/>}/>
+        <Route path="proveedores/crear" element={<FormProveedores/>}/>
         
         </Route>
 
