@@ -1,17 +1,27 @@
 import express from "express";
-import { conectarDB } from "./database.js";
-
-conectarDB();
+import { conectarDB } from "./config/database.js";
+import usuariosRoutes from "./modules/usuarios/usuario.routes.js";
+import authConfig from "./config/auth.js";
+import authRoutes from "./modules/auth/auth.routes.js"
+import { verificarAutenticacion } from "./config/auth.js";
 
 const app = express();
 const port = 3000;
 
-app.use(express.json());
+conectarDB();
+authConfig();
 
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hola mundo!");
 });
+
+app.use("/auth", authRoutes)
+
+app.use(verificarAutenticacion);
+
+app.use("/usuarios", usuariosRoutes)
 
 app.listen(port, () => {
     console.log(`La app esta funcionando en el puerto ${port}`);

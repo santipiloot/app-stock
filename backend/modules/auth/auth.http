@@ -1,0 +1,25 @@
+@URL=http://localhost:3000
+@token=
+
+### 1. Probar Registro 
+POST {{URL}}/auth/register
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "nombre": "Santino",
+    "apellido": "Pilot",
+    "username": "santipiloot",
+    "rol_id": 1,
+    "activo": true,
+    "password": ""
+}
+
+### 2. Probar Login
+POST {{URL}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": ""
+}
