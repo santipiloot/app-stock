@@ -2,3 +2,29 @@
 
 ### GET Proveedores
 GET {{URL}}/proveedores
+
+### GET Proveedor
+GET {{URL}}/proveedores/2
+
+### POST Proveedor
+POST {{URL}}/proveedores
+Content-Type: application/json
+
+{
+  "nombre": "Papu Papu",
+  "telefono": "3454546456546",
+  "activo": false
+}
+
+### PUT Proveedor
+PUT {{URL}}/proveedores/2
+Content-Type: application/json
+
+{
+  "nombre": "Papu Papuche",
+  "telefono": "1234567890",
+  "activo": true
+}
+
+### DELETE Proveedor
+DELETE {{URL}}/proveedores/2
