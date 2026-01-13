@@ -43,7 +43,43 @@ const Usuario = {
             console.error("Error en la base de datos con register:", error);
             throw error;
         }
+    },
+    updateStatus: async (id, activo) => {
+        try {
+            const res = await db.query(
+                "UPDATE usuarios SET activo = $1 WHERE id = $2 RETURNING id, username, activo",
+                [activo, id]
+            );
+            return res.rows[0];
+        } catch (error) {
+            console.error("Error en la base de datos con updateStatus:", error);
+            throw error;
+        }
+    },
+    updatePassword: async (id, password_hash) => {
+        try {
+            const res = await db.query(
+                "UPDATE usuarios SET password_hash = $1 WHERE id = $2 RETURNING id, username",
+                [password_hash, id]
+            );
+            return res.rows[0];
+        } catch (error) {
+            console.error("Error en la base de datos con updatePassword:", error);
+            throw error;
+        }
+    }, 
+    updateRol: async (id, rol_id) => {
+    try {
+        const res = await db.query(
+            "UPDATE usuarios SET rol_id = $1 WHERE id = $2 RETURNING id, username, rol_id",
+            [rol_id, id]
+        );
+        return res.rows[0];
+    } catch (error) {
+        console.error("Error en la base de datos con updateRol:", error);
+        throw error;
     }
+}
 }
 
 export default Usuario
