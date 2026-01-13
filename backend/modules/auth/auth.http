@@ -1,25 +1,65 @@
-@URL=http://localhost:3000
-@token=
-
-### 1. Probar Registro 
-POST {{URL}}/auth/register
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-{
-    "nombre": "Santino",
-    "apellido": "Pilot",
-    "username": "santipiloot",
-    "rol_id": 1,
-    "activo": true,
-    "password": ""
-}
-
-### 2. Probar Login
+@URL = http://localhost:3000
+@token = 
+### 1. Login (Publico)
 POST {{URL}}/auth/login
 Content-Type: application/json
 
 {
-    "username": "admin",
+    "username": "santipiloot",
     "password": ""
+}
+
+### 2. Obtener mi perfil (Privado)
+GET {{URL}}/auth/me
+Authorization: Bearer {{token}}
+
+### 3. Cambiar mi propia contraseña  (Privado)
+PATCH {{URL}}/auth/my-password
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "passwordActual": "",
+    "nuevaPassword": ""
+}
+
+### 4. Registrar nuevo usuario (Privado - Solo Admin)
+POST {{URL}}/auth/register
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "nombre": "Nazareno",
+    "apellido": "Mansilla",
+    "username": "nazamans",
+    "rol_id": 2,
+    "activo": true,
+    "password": ""
+}
+
+### 5. Cambiar estado de usuario (Privado - Solo Admin)
+PATCH {{URL}}/auth/status/4
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "activo": true
+}
+
+### 6. Resetear contraseña de un usuario (Privado - Solo Admin)
+PATCH {{URL}}/auth/reset-password/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "nuevaPassword": ""
+}
+
+### 7. Cambiar rol de un usuario (Privado - Solo Admin)
+PATCH {{URL}}/auth/change-role/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "rol_id": 2
 }

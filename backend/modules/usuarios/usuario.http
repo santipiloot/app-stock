@@ -1,9 +1,11 @@
 @URL = http://localhost:3000
+@token = 
 
-### Obtener todos los usuarios
+### 1. Listar todos los usuarios (Privado - Solo Admin)
 GET {{URL}}/usuarios
-Content-Type: application/json
+Authorization: Bearer {{token}}
 
-### Obtener un solo usuario
+### 2. Obtener un usuario por ID (Privado - Solo Admin)
 GET {{URL}}/usuarios/1
-Content-Type: application/json
+Authorization: Bearer {{token}}
+

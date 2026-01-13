@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 
 app.use("/auth", authRoutes)
 
-//app.use(verificarAutenticacion);
+app.use(verificarAutenticacion);
 
 app.use("/usuarios", usuariosRoutes);
 
