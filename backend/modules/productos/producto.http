@@ -1,0 +1,15 @@
+@URL = http://localhost:3000
+@token =
+
+### 1. Obtener todos los productos activos
+GET {{URL}}/productos
+Authorization: Bearer {{token}}
+
+### 2. Obtener un producto por ID
+GET {{URL}}/productos/11
+Authorization: Bearer {{token}}
+
+### 3. Buscar producto por Escáner (Código de Barras)
+GET {{URL}}/productos/codigo/7790001001456
+Authorization: Bearer {{token}}
+
