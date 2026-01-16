@@ -13,7 +13,21 @@ const productoController = {
             res.status(500).json({ success: false, message: "Error interno del servidor al obtener productos" });
         }
     },
-
+    getProductosInactivos: async (req, res) => {
+        try {
+            const productos = await Producto.getProductosInactivos();
+            res.status(200).json({
+                success: true,
+                data: productos
+            });
+        } catch (error) {
+            console.error("Error en getProductosInactivos:", error);
+            res.status(500).json({
+                success: false,
+                message: "Error interno del servidor al obtener productos inactivos"
+            });
+        }
+    },
     getProducto: async (req, res) => {
         try {
             const { id } = req.params;
@@ -36,9 +50,9 @@ const productoController = {
             const producto = await Producto.getProductoCodigo(codigo);
 
             if (!producto) {
-                return res.status(404).json({ 
-                    success: false, 
-                    message: "El codigo no existe en la base de datos" 
+                return res.status(404).json({
+                    success: false,
+                    message: "El codigo no existe en la base de datos"
                 });
             }
 
@@ -47,7 +61,31 @@ const productoController = {
             console.error("error en getProductoCodigo:", error)
             res.status(500).json({ success: false, message: "Error interno del servidor al escanear producto" });
         }
+    },
+    create: async (req, res) => {
+    try {
+        const nuevoProducto = await Producto.create(req.body);
+        res.status(201).json({ 
+            success: true, 
+            message: "Producto creado exitosamente",
+            data: nuevoProducto 
+        });
+    } catch (error) {
+        console.error("Error en create producto:", error);
+
+        if (error.code === '23505') {
+            return res.status(400).json({ 
+                success: false, 
+                message: "Ya existe un producto con ese código de barras" 
+            });
+        }
+
+        res.status(500).json({ 
+            success: false, 
+            message: "Error interno del servidor al crear el producto" 
+        });
     }
+}
 };
 
 export default productoController;
