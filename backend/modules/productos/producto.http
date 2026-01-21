@@ -1,15 +1,36 @@
 @URL = http://localhost:3000
-@token =
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc2ODU5MzU4NCwiZXhwIjoxNzY4NjIyMzg0fQ.cBvgTyp15eyxhSJ55H8JX9wax7DTufwLUkgrolV_BOs
 
 ### 1. Obtener todos los productos activos
 GET {{URL}}/productos
 Authorization: Bearer {{token}}
 
-### 2. Obtener un producto por ID
+### 2. Obtener todos los productos activos
+GET {{URL}}/productos/inactivos
+Authorization: Bearer {{token}}
+
+### 3. Obtener un producto por ID
 GET {{URL}}/productos/11
 Authorization: Bearer {{token}}
 
-### 3. Buscar producto por Escáner (Código de Barras)
+### 4. Buscar producto por Escáner (Código de Barras)
 GET {{URL}}/productos/codigo/7790001001456
 Authorization: Bearer {{token}}
+
+### 5. Crear un producto
+POST {{URL}}/productos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "nombre": "Galletitas Variedad 400g",
+    "descripcion": "Surtido de galletitas dulces",
+    "codigo_barra": "7791234567890",
+    "categoria_id": 4,
+    "proveedor_id": 6,
+    "precio": 1450.50,
+    "stock": 24,
+    "stock_critico": 6
+}
+
 
