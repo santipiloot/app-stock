@@ -6,13 +6,14 @@ import authRoutes from "./modules/auth/auth.routes.js"
 import { verificarAutenticacion } from "./config/auth.js";
 import proveedoresRoutes from "./modules/proveedores/proveedores.routes.js";
 import productoRoutes from "./modules/productos/producto.routes.js"
-
+import cors from "cors";
 const app = express();
 const port = 3000;
 
 conectarDB();
 authConfig();
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
