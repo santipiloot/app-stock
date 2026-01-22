@@ -1,12 +1,38 @@
-const proveedores = [{id: 1, nombre: "Jose Maria", telefono: 380412344332, activo: true}, {id: 2, nombre: "Maria Jose", telefono: 380412344332, activo: true}, {id: 3, nombre: "Tapia Chiqui", telefono: 380412344332, activo: false}, {id: 4, nombre: "Chiqui Tapia", telefono: 380412344332, activo: false}]
-
 import { Link } from "react-router"
+import { useEffect, useState } from "react"
+import { useCallback } from "react"
 
 function TablaProveedores() {
 
     const handleQuitar = async (id) => {
 
     }
+
+    const [proveedores, setProveedores] = useState([]);
+
+    const fetchProveedores = useCallback(
+
+        async () => {
+            const response = await fetch("http://localhost:3000/proveedores");
+            const data = await response.json();
+
+            if (!response.ok){
+                console.log("Hubo un error: ", data.error);
+                return;
+            }
+
+            console.log("Proveedores: ", data);
+
+            setProveedores(data.data)
+        }
+    )
+
+    useEffect(() => {
+      
+        fetchProveedores();
+        
+    }, []);
+
 
   return (
     <div>
