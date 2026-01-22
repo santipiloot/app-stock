@@ -1,9 +1,10 @@
-import React from 'react'
 import { Link } from "react-router"
+import { useEffect, useState } from "react"
+import { useCallback } from "react"
 
 //Los productos tienen nombre, descripcion, codigo_barra, categoria_id, stock, stock_critico, precio, proveedor_id, activo
 
-const productos = [{id: 1, nombre: "Producto 1", descripcion: "Descripcion del producto 1", codigo_barra: "123456789", categoria_id: 1, stock: 10, stock_critico: 5, precio: 100, proveedor_id: 1, activo: true}, {id: 2, nombre: "Producto 2", descripcion: "Descripcion del producto 2", codigo_barra: "123456789", categoria_id: 1, stock: 50, stock_critico: 10, precio: 200, proveedor_id: 1, activo: true}]
+
 
 
 function TablaProductos() {
@@ -11,6 +12,31 @@ function TablaProductos() {
     const handleQuitar = async (id) => {
 
     }
+
+    const [productos, setProductos] = useState([]);
+
+    const fetchProductos = useCallback(
+        async () => {
+            const response = await fetch("http://localhost:3000/productos");
+            const data = await response.json();
+
+            if (!response.ok){
+                console.log("Hubo un error: ", data.error);
+                return;
+            }
+
+            console.log("Productos: ", data);
+
+            setProductos(data.data)
+        }
+    )
+
+    useEffect(() => {
+      
+        fetchProductos();
+     
+    }, []);
+    
 
   return (
     <div>
