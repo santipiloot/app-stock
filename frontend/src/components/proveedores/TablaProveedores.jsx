@@ -6,6 +6,21 @@ function TablaProveedores() {
 
     const handleQuitar = async (id) => {
 
+        if (window.confirm("¿Confirma que quiere eliminar a este proveedor?")){
+
+            const response = await fetch(`http://localhost:3000/proveedores/${id}`, {
+                method: "DELETE",
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success){
+                console.log("Hubo un error: ", data.error);
+                return;
+            }
+
+            await fetchProveedores();
+        }
     }
 
     const [proveedores, setProveedores] = useState([]);
