@@ -1,0 +1,84 @@
+import { useState, useEffect, useCallback } from "react"
+import { Link, useNavigate, useParams } from "react-router"
+
+function ModificarProveedores() {
+
+    const navigate = useNavigate();
+    const {id} = useParams();
+
+    const [values, setValues] = useState(null);
+
+    const fetchProveedor = useCallback( async () => {
+        const response = await fetch(`http://localhost:3000/proveedores/${id}`);
+        const data = await response.json();
+
+        if (!response.ok || !data.success){
+            if(response.status === 400){
+                console.log("Hubo un error: ", data.error);
+                return;
+            }
+        }
+
+
+        setValues(data.data); 
+        
+    }, [id]);
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch(`http://localhost:3000/proveedores/${id}`, {
+          method: "PUT",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(values),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success){
+          if(response.status === 400){
+            console.log("Hubo un error: ", data.error);
+          
+          }
+        }
+
+        navigate("/proveedores");
+    }
+
+    useEffect(() => {
+        fetchProveedor();
+    }, [fetchProveedor]);
+
+    if (!values) {
+        return <div className="container mt-3">Cargando</div>
+    }
+
+
+  return (
+    <div className="container mt-3">
+        <h2>Ingrese datos del proveedor</h2>
+        <form onSubmit={handleSubmit}>
+           <div className="mb-3">
+    <label htmlFor="" className="form-label">Nombre</label>
+    <input required value={values.nombre} onChange={(e) => setValues({...values, nombre: e.target.value})}  className="form-control" id="InputNombre" aria-describedby="nombreHelp" />
+    <div id="emailHelp" className="form-text"></div>
+  </div>
+  <div className="mb-3">
+    <label htmlFor="" className="form-label">Telefono</label>
+    <input required value={values.telefono} onChange={(e) => setValues({...values, telefono: e.target.value})}  className="form-control" id="InputTelefono" aria-describedby="telefonoHelp" />
+    <div id="telefonoHelp" className="form-text"></div>
+  </div>
+  {/* Activo como select */}
+  
+  
+  <button type="submit" className="btn btn-primary">Agregar</button>
+  <button type="button" className="btn btn-secondary ms-2" onClick={() => navigate("/proveedores")}>Cancelar</button>  
+        </form>
+
+        
+    </div>
+  )
+}
+
+export default ModificarProveedores
