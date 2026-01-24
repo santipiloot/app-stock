@@ -16,7 +16,24 @@ function FormProveedores() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        //Aca va el fetch para el post, setValues y el navigate
+        const response = await fetch("http://localhost:3000/proveedores", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(values),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success){
+          if(response.status === 400){
+            console.log("Hubo un error: ", data.error);
+          
+          }
+        }
+
+        setValues(initialValues);
+
+        navigate("/proveedores");
     }
 
   return (
