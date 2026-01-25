@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router"
 import Layout from "./components/layout/Layout.jsx"
 import Home from "./components/home/Home.jsx"
 import ProductosLayout from "./components/productos/ProductosLayout.jsx"
+import FormProducto from "./components/productos/FormProducto.jsx"
 import UsuariosLayout from "./components/usuarios/UsuariosLayout.jsx"
 import ProveedoresLayout from "./components/proveedores/ProveedoresLayout.jsx"
 import FormProveedores from "./components/proveedores/FormProveedores.jsx"
@@ -22,6 +23,8 @@ function App() {
         <Route index element={<Home/>} />
         
         <Route path="productos" element={<ProductosLayout/>} />
+        <Route path="productos/crear" element={<FormProducto/>} />
+        
 
         <Route path="usuarios" element={<UsuariosLayout/>} />
         
