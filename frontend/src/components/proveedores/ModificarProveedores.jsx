@@ -1,23 +1,35 @@
-import { useState } from "react"
-import { Link, useNavigate } from "react-router"
+import { useState, useEffect, useCallback } from "react"
+import { Link, useNavigate, useParams } from "react-router"
 
-function FormProveedores() {
+function ModificarProveedores() {
 
     const navigate = useNavigate();
+    const {id} = useParams();
 
-    const initialValues = {
-        nombre: "",
-        telefono: "",
-        activo: true
-    }
+    const [values, setValues] = useState(null);
 
-    const [values, setValues] = useState(initialValues);
+    const fetchProveedor = useCallback( async () => {
+        const response = await fetch(`http://localhost:3000/proveedores/${id}`);
+        const data = await response.json();
+
+        if (!response.ok || !data.success){
+            if(response.status === 400){
+                console.log("Hubo un error: ", data.error);
+                return;
+            }
+        }
+
+
+        setValues(data.data); 
+        
+    }, [id]);
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await fetch("http://localhost:3000/proveedores", {
-          method: "POST",
+        const response = await fetch(`http://localhost:3000/proveedores/${id}`, {
+          method: "PUT",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify(values),
         });
@@ -31,10 +43,17 @@ function FormProveedores() {
           }
         }
 
-        setValues(initialValues);
-
         navigate("/proveedores");
     }
+
+    useEffect(() => {
+        fetchProveedor();
+    }, [fetchProveedor]);
+
+    if (!values) {
+        return <div className="container mt-3">Cargando</div>
+    }
+
 
   return (
     <div className="container mt-3">
@@ -62,4 +81,4 @@ function FormProveedores() {
   )
 }
 
-export default FormProveedores
+export default ModificarProveedores

@@ -6,6 +6,21 @@ function TablaProveedores() {
 
     const handleQuitar = async (id) => {
 
+        if (window.confirm("¿Confirma que quiere eliminar a este proveedor?")){
+
+            const response = await fetch(`http://localhost:3000/proveedores/${id}`, {
+                method: "DELETE",
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success){
+                console.log("Hubo un error: ", data.error);
+                return;
+            }
+
+            await fetchProveedores();
+        }
     }
 
     const [proveedores, setProveedores] = useState([]);
@@ -58,7 +73,7 @@ function TablaProveedores() {
                     <td>
                         <div>
                         <Link className="btn btn-outline-info btn-sm" role="button" to={`/proveedores/${p.id}`}> Ver </Link>
-                        <Link className="btn btn-outline-warning btn-sm" role="button" to={`/proveedores/${p.id}/modificar`}> Modificar </Link>
+                        <Link className="btn btn-outline-warning btn-sm" role="button" to={`/proveedores/${p.id}`}> Modificar </Link>
                         <button className="btn btn-outline-danger btn-sm" onClick={() => handleQuitar(p.id)}>Quitar</button>
                         </div>
                     </td>
