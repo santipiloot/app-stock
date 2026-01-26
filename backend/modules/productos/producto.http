@@ -33,4 +33,33 @@ Content-Type: application/json
     "stock_critico": 6
 }
 
+### 6. Actualizar stock
+PATCH {{URL}}/productos/stock/11
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "stock": 13
+}
+
+### 7. Obtener productos con Stock Crítico
+GET {{URL}}/productos/stock-critico
+Authorization: Bearer {{token}}
+
+### 8. Actualización completa de un producto
+PATCH {{URL}}/productos/10
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "nombre": "Yerba Mate Playadito 500g",
+    "descripcion": "Amarga",
+    "codigo_barra": "7791234500012",
+    "categoria_id": 4,
+    "stock": 50,
+    "stock_critico": 10,
+    "precio": 3200.00,
+    "proveedor_id": 6,
+    "activo": true
+}
 
