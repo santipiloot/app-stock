@@ -24,20 +24,20 @@ export const AuthProvider = ({children}) => {
             const response = await fetch("http://localhost:3000/auth/login", {
                 method: "POST", 
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({user, password}),
+                body: JSON.stringify({username: user, password}),
             });
 
             const session = await response.json();
 
-            if (!response.ok && response.status === 400){
-                throw new Error(session.error);
+            if (!response.ok){
+                throw new Error(session.message || session.error);
             }
 
             //user: { id: usuario.id, username: usuario.username, nombre: usuario.nombre, rol: rol.nombre }
-            setToken(session.token);
-            setUser(session.username);
-            setNombre(session.nombre);
-            setRol(session.rol);
+            setToken(session.data.token);
+            setUser(session.data.user.username);
+            setNombre(session.data.user.nombre);
+            setRol(session.data.user.rol);
             return {success: true};
         } catch (err) {
             setError(err.message);
