@@ -6,7 +6,7 @@ import Login from "../login/Login.jsx"
 
 function Layout() {
 
-    const {isAuthenticated, logout} = useAuth();
+    const {isAuthenticated, logout, rol} = useAuth();
 
 return (
     <main>
@@ -18,12 +18,14 @@ return (
                 <li className="nav-item">
                     <Link className="nav-link active" to="/productos">Productos</Link>
                 </li>
-                {
+                {rol === "administrador" && (
+                  <li className="nav-item">
+                    <Link className="nav-link active" to="/usuarios">Usuarios</Link>
+                </li>  
+                )
                     
                 }
-                <li className="nav-item">
-                    <Link className="nav-link active" to="/usuarios">Usuarios</Link>
-                </li>
+                
                 <li className="nav-item">
                     <Link className="nav-link active" to="/proveedores">Proveedores</Link>
                 </li>
