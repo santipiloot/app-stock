@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/", proveedoresController.getProveedores);
 router.get("/:id", [validarId, verificarValidaciones], proveedoresController.getProveedor);
 router.post("/", proveedoresController.postProveedor);
-router.put("/:id", [validarId, verificarValidaciones], proveedoresController.putProveedor);
+router.put("/:id/modificar", [validarId, verificarValidaciones], proveedoresController.putProveedor);
 router.delete("/:id", [validarId, verificarValidaciones], proveedoresController.deleteProveedor);
 
 export default router;

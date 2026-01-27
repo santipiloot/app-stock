@@ -16,6 +16,9 @@ return (
                     <Link className="nav-link active" to="/">Inicio</Link>
                 </li>
                 <li className="nav-item">
+                    <Link className="nav-link active" to="/dashboard">Gestion</Link>
+                </li>
+                <li className="nav-item">
                     <Link className="nav-link active" to="/productos">Productos</Link>
                 </li>
                 {rol === "administrador" && (
@@ -37,9 +40,9 @@ return (
                     )}
                 </li>
                 <li>
-                    {!isAuthenticated &&
+                    {/* {!isAuthenticated &&
                     <div>Hola</div>
-                    }
+                    } */}
                 </li>
             </ul>
           

@@ -6,6 +6,7 @@ import ProductosLayout from "./components/productos/ProductosLayout.jsx"
 import FormProducto from "./components/productos/FormProducto.jsx"
 import UsuariosLayout from "./components/usuarios/UsuariosLayout.jsx"
 import ProveedoresLayout from "./components/proveedores/ProveedoresLayout.jsx"
+import DetallesProveedores from "./components/proveedores/DetallesProveedores.jsx"
 import FormProveedores from "./components/proveedores/FormProveedores.jsx"
 import ModificarProveedores from "./components/proveedores/ModificarProveedores.jsx"
 import Login from "./components/login/Login.jsx"
@@ -51,6 +52,13 @@ function App() {
           
           }/>
 
+          <Route path="proveedores/:id" element={
+          <AuthPage>
+            <DetallesProveedores/>
+          </AuthPage>
+          
+          }/>
+
         <Route path="proveedores/crear" element={
           <AuthPage>
             <FormProveedores/>
@@ -58,7 +66,7 @@ function App() {
           
           }/>
 
-        <Route path="proveedores/:id" element={
+        <Route path="proveedores/:id/modificar" element={
           <AuthPage>
             <ModificarProveedores/>
           </AuthPage>
