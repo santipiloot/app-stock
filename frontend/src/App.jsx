@@ -9,33 +9,68 @@ import ProveedoresLayout from "./components/proveedores/ProveedoresLayout.jsx"
 import FormProveedores from "./components/proveedores/FormProveedores.jsx"
 import ModificarProveedores from "./components/proveedores/ModificarProveedores.jsx"
 import Login from "./components/login/Login.jsx"
+import { AuthPage, AuthProvider } from "./auth/auth.jsx"
 
 function App() {
 
   return (
     <>
-    <Routes>
+    <AuthProvider>
+      <Routes>
       <Route path="/login" element={<Login/>} />
     </Routes>
       <Routes>
         <Route path="/" element={<Layout/>}>
 
         <Route index element={<Home/>} />
-        
-        <Route path="productos" element={<ProductosLayout/>} />
-        <Route path="productos/crear" element={<FormProducto/>} />
-        
 
-        <Route path="usuarios" element={<UsuariosLayout/>} />
+        {/* Productos */}
         
-        <Route path="proveedores" element={<ProveedoresLayout/>}/>
-        <Route path="proveedores/crear" element={<FormProveedores/>}/>
-        <Route path="proveedores/:id" element={<ModificarProveedores/>}/>
+        <Route path="productos" element={
+          <AuthPage>
+            <ProductosLayout/>
+          </AuthPage>
+          } />
+
+        <Route path="productos/crear" element={
+          <AuthPage>
+            <FormProducto/>
+          </AuthPage>
+          } />
+
+          {/* Usuarios */}
+        
+        <Route path="usuarios" element={<UsuariosLayout/>} />
+
+        {/* Proveedores */}
+        
+        <Route path="proveedores" element={
+          <AuthPage>
+            <ProveedoresLayout/>
+          </AuthPage>
+          
+          }/>
+
+        <Route path="proveedores/crear" element={
+          <AuthPage>
+            <FormProveedores/>
+          </AuthPage>
+          
+          }/>
+
+        <Route path="proveedores/:id" element={
+          <AuthPage>
+            <ModificarProveedores/>
+          </AuthPage>
+          
+          }/>
 
         
         </Route>
 
       </Routes>
+    </AuthProvider>
+    
     </>
   )
 }
