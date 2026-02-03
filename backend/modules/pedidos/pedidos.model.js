@@ -83,8 +83,27 @@ const Pedido = {
 
     patchEstadoPedido: async (id) => {
 
-        //Hacer patch
+        try {
+
+            const queryPedido = "UPDATE pedido SET estado = 'Entregado' WHERE id = $1 RETURNING * ";
+            const { pedido } = await db.query(queryPedido, [id]);
+
+            const queryDetalle = "SELECT * FROM pedido_detalle WHERE pedido_id = $1";
+            const {detalles} = await db.query(queryDetalle, [id]);
+
+            for (const detalle of detalles) {
+                const queryProducto = await "UPDATE productos SET stock = stock + $1 WHERE id = $2";
+                await db.query(queryPedido, [detalle.cantidad, detalle.producto_id]);
+            }
+
+            return {sucess: true, messagge: "Stock modificado"}
+
+        } catch (err) {
+            throw err;
+        }
+    
     },
+    
 
 
 }
