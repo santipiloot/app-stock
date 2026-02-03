@@ -45,7 +45,7 @@ const Pedido = {
 
     },
 
-    postPedido: async (datos) => {
+    createPedido: async (datos) => {
 
         const client = await db.connect();
 
@@ -81,7 +81,7 @@ const Pedido = {
 
     },
 
-    patchEstadoPedido: async (id) => {
+    entregarPedido: async (id) => {
 
         try {
 
@@ -103,7 +103,14 @@ const Pedido = {
         }
     
     },
-    
+
+    cancelarPedido: async (id) => {
+
+        const query = "UPDATE pedidos SET estado = 'Cancelado' WHERE id = $1";
+
+        const { rows } = await db.query(query, [id]);
+
+    },
 
 
 }
