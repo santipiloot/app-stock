@@ -6,6 +6,7 @@ import authRoutes from "./modules/auth/auth.routes.js"
 import { verificarAutenticacion } from "./config/auth.js";
 import proveedoresRoutes from "./modules/proveedores/proveedores.routes.js";
 import productoRoutes from "./modules/productos/producto.routes.js"
+import pedidoRoutes from "./modules/pedidos/pedidos.routes.js";
 import cors from "cors";
 const app = express();
 const port = 3000;
@@ -29,6 +30,8 @@ app.use("/productos", productoRoutes)
 app.use("/usuarios", usuariosRoutes);
 
 app.use("/proveedores", proveedoresRoutes);
+
+app.use("/pedidos", pedidoRoutes);
 
 app.listen(port, () => {
     console.log(`La app esta funcionando en el puerto ${port}`);

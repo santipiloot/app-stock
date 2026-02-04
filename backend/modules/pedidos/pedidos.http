@@ -1,0 +1,40 @@
+@URL = http://localhost:3000
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6ImFkbWluIiwicm9sIjoiYWRtaW5pc3RyYWRvciIsImlhdCI6MTc3MDE4NDcxNCwiZXhwIjoxNzcwMjEzNTE0fQ.yyjB_7GpamHtEqDsb-NAOyEXunajeuLWUrbgdYkDvLw
+
+### Login
+
+POST {{URL}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin12345"
+}
+
+### GET pedidos
+
+GET {{URL}}/pedidos
+Authorization: Bearer {{token}}
+
+### GET pedido por ID
+
+GET {{URL}}/pedidos/5
+Authorization: Bearer {{token}}
+
+### POST pedido
+
+POST {{URL}}/pedidos/crear
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "proveedor_id": 7,
+    "usuario_id": 4,
+    "precio_total": 30000,
+    "fecha_pedido": "2025-04-12",
+    "detalles": [
+        {"producto_id": 12, "cantidad": 15, "precio_unitario": 1500},
+        {"producto_id": 16, "cantidad": 20, "precio_unitario": 2000}
+    ]
+}

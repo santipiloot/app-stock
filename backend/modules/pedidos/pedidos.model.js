@@ -1,4 +1,4 @@
-import { db } from "../../config/database";
+import { db } from "../../config/database.js";
 
 //Tabla pedidos = id, proveedor_id, usuario_id, fecha_pedido, esstado, precio_total
 
@@ -12,16 +12,16 @@ const Pedido = {
 
     getPedidos: async () => {
         const query = `SELECT 
-        pedidos.id,
-        pedidos.fecha_pedido,
-        pedidos.estado,
+        pedido.id,
+        pedido.fecha_pedido,
+        pedido.estado,
         pedido.precio_total,
         proveedores.nombre AS proveedor_nombre,
         usuarios.nombre AS usuario_nombre
-        FROM pedidos
-        INNER JOIN proveedores ON pedidos.proveedor_id = proveedores.id
-        INNER JOIN usuarios ON pedidos.usuarios_id = usuarios.id
-        ORDER BY pedidos.id DESC;`;
+        FROM pedido
+        INNER JOIN proveedores ON pedido.proveedor_id = proveedores.id
+        INNER JOIN usuarios ON pedido.usuario_id = usuarios.id
+        ORDER BY pedido.id DESC;`;
 
         const { rows} = await db.query(query);
         return rows;
@@ -30,9 +30,8 @@ const Pedido = {
     getPedido: async (id) => {
 
         const query = `SELECT
-        pd.id,
-        pd.compra_id, 
-        pd.producto_id, 
+        pd.id, 
+        pd.pedido_id, 
         pd.cantidad, 
         pd.precio, 
         p.nombre AS producto_nombre 
@@ -55,16 +54,16 @@ const Pedido = {
 
             const {proveedor_id, usuario_id, fecha_pedido, precio_total, detalles } = datos;
 
-            const queryPedido = `INSERT INTO pedidos (proveedor_id, usuario_id, fecha_pedido, precio_total, estado, precio_total)
-            VALUES ($1, $2, $3, $4, "Pendiente", $5) RETURNING id`;
+            const queryPedido = `INSERT INTO pedido (proveedor_id, usuario_id, fecha_pedido, estado, precio_total)
+            VALUES ($1, $2, $3, 'Pendiente', $4) RETURNING id`;
 
-            const [resPedido] = await client.query(queryPedido, [proveedor_id, usuario_id, fecha_pedido, precio_total]);
+            const resPedido = await client.query(queryPedido, [proveedor_id, usuario_id, fecha_pedido, precio_total]);
             const pedidoId = resPedido.rows[0].id;
 
             for (const detalle of detalles) {
                 const queryDetalle = `INSERT INTO pedido_detalle (pedido_id, producto_id, cantidad, precio) VALUES ($1, $2, $3, $4)`;
 
-                await client.query(queryDetalle, [pedidoId, detalle.producto_id, detalle.cantidad, detalle.precio]);
+                await client.query(queryDetalle, [pedidoId, detalle.producto_id, detalle.cantidad, detalle.precio_unitario]);
             }
 
             await client.query("COMMIT");
@@ -86,17 +85,22 @@ const Pedido = {
         try {
 
             const queryPedido = "UPDATE pedido SET estado = 'Entregado' WHERE id = $1 RETURNING * ";
-            const { pedido } = await db.query(queryPedido, [id]);
+            const resPedido = await db.query(queryPedido, [id]);
+
+            if (resPedido.rows.length === 0){
+                throw new Error("Pedido no encontrado");
+            }
 
             const queryDetalle = "SELECT * FROM pedido_detalle WHERE pedido_id = $1";
-            const {detalles} = await db.query(queryDetalle, [id]);
+            const resDetalles = await db.query(queryDetalle, [id]);
+            const detalles = resDetalles.rows;
 
             for (const detalle of detalles) {
                 const queryProducto = await "UPDATE productos SET stock = stock + $1 WHERE id = $2";
-                await db.query(queryPedido, [detalle.cantidad, detalle.producto_id]);
+                await db.query(queryProducto, [detalle.cantidad, detalle.producto_id]);
             }
 
-            return {sucess: true, messagge: "Stock modificado"}
+            return {sucess: true, messagge: "Stock modificado | Pedido entregado"}
 
         } catch (err) {
             throw err;
@@ -106,7 +110,7 @@ const Pedido = {
 
     cancelarPedido: async (id) => {
 
-        const query = "UPDATE pedidos SET estado = 'Cancelado' WHERE id = $1";
+        const query = "UPDATE pedido SET estado = 'Cancelado' WHERE id = $1";
 
         const { rows } = await db.query(query, [id]);
 
