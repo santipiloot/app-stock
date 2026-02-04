@@ -19,7 +19,12 @@ Authorization: Bearer {{token}}
 
 ### GET pedido por ID
 
-GET {{URL}}/pedidos/5
+GET {{URL}}/pedidos/4
+Authorization: Bearer {{token}}
+
+### Entregar pedido
+
+PATCH {{URL}}/pedidos/entregar/4
 Authorization: Bearer {{token}}
 
 ### POST pedido

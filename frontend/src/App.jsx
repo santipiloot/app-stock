@@ -9,6 +9,7 @@ import ProveedoresLayout from "./components/proveedores/ProveedoresLayout.jsx"
 import DetallesProveedores from "./components/proveedores/DetallesProveedores.jsx"
 import FormProveedores from "./components/proveedores/FormProveedores.jsx"
 import ModificarProveedores from "./components/proveedores/ModificarProveedores.jsx"
+import DashboardLayout from "./components/dashboard/DashboardLayout.jsx"
 import Login from "./components/login/Login.jsx"
 import { AuthPage, AuthProvider } from "./auth/auth.jsx"
 
@@ -72,6 +73,13 @@ function App() {
           </AuthPage>
           
           }/>
+
+          <Route path="gestion" element={
+            <AuthPage>
+              <DashboardLayout/>
+            </AuthPage>
+          }
+          />
 
         
         </Route>
